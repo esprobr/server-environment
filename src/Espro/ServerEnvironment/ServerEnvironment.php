@@ -153,8 +153,8 @@ class ServerEnvironment
     public static function getEnvVar(...$_input)
     {
         $key = implode( self::$defaultEnvSeparator, $_input );
-        return getenv("LOCAL" . $key)
-            ? getenv("LOCAL" . $key)
+        return getenv("LOCAL" . self::$defaultEnvSeparator . $key)
+            ? getenv("LOCAL" . self::$defaultEnvSeparator . $key)
             : getenv($key);
     }
 
