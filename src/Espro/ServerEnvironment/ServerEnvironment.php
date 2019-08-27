@@ -33,7 +33,7 @@ class ServerEnvironment
     public static function setRootPathOnce( $_rootPath )
     {
         if(is_null(self::$rootPath)) {
-            self::$rootPath = $_rootPath;
+            self::$rootPath = rtrim($_rootPath, '/\\');
         }
     }
 
@@ -87,7 +87,7 @@ class ServerEnvironment
             (new \Espro\SimpleApacheEnvParser\Parser())->parse(self::$apacheEnvFilePath);
         }
 
-        if( class_exists( '\Dotenv\Dotenv' ) && file_exists(self::$rootPath.self::$dotEnvFileName) ) {
+        if( class_exists( '\Dotenv\Dotenv' ) && file_exists(self::$rootPath.'/'.self::$dotEnvFileName) ) {
             $dotenv = \Dotenv\Dotenv::create(self::$rootPath, self::$dotEnvFileName, new \Dotenv\Environment\DotenvFactory([
                 new \Dotenv\Environment\Adapter\PutenvAdapter(),
                 new \Dotenv\Environment\Adapter\ApacheAdapter()
