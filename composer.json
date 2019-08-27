@@ -15,7 +15,7 @@
     "esprobr/utils": "dev-master"
   },
   "require-dev": {
-    "vlucas/phpdotenv": "dev-master"
+    "vlucas/phpdotenv": "3.4"
   },
   "autoload": {
     "psr-0": {
