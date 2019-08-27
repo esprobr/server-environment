@@ -7,7 +7,7 @@ use Espro\Utils\SingletonTrait;
  * Class ServerEnvironment
  * Utilizada para poder pegar as variáveis de ambiente no php 5.6 de forma mais simples, visto que não é possível
  * sobrescrever uma variável de ambiente já definida para poder retornar via getenv, devido a restrições de segurança.
- * @method static ServerEnvironment getInstance($_envCodeString)
+ * @method static ServerEnvironment getInstance($_envCodeString = null)
  */
 class ServerEnvironment
 {
@@ -80,7 +80,7 @@ class ServerEnvironment
      * ServerEnvironment constructor.
      * @param $_envCodeString
      */
-    protected function __construct( $_envCodeString )
+    protected function __construct( $_envCodeString = null )
     {
         //Para tornar possível utilizar as variáveis de ambiente do apache no cli com o fpm
         if( PHP_SAPI === 'cli' || !is_null(self::$apacheEnvFilePath) ) {
@@ -95,12 +95,14 @@ class ServerEnvironment
             $dotenv->overload();
         }
 
-        $serverAppEnv = getenv( 'LOCAL' . self::$defaultEnvSeparator . $_envCodeString );
+        if(!is_null($_envCodeString)) {
+            $serverAppEnv = getenv('LOCAL' . self::$defaultEnvSeparator . $_envCodeString);
 
-        if ( ! ( $serverAppEnv === false ) && self::isEnvCodeValid( intval( $serverAppEnv ) ) ) {
-            $this->code = intval( $serverAppEnv );
-        } else {
-            $this->code = intval( getenv( $_envCodeString ) );
+            if (!($serverAppEnv === false) && self::isEnvCodeValid(intval($serverAppEnv))) {
+                $this->code = intval($serverAppEnv);
+            } else {
+                $this->code = intval(getenv($_envCodeString));
+            }
         }
 
         $this->name = $this->envStrings[$this->code];
