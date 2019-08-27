@@ -1,0 +1,27 @@
+{
+  "name": "esprobr/server-environment",
+  "license": "GPL-2.0-only",
+  "description": "Environment loader/handler",
+  "version": "dev-master",
+  "authors": [
+    {
+      "name": "Wesley Sousa",
+      "email": "wesleyyps@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.6.0",
+    "esprobr/simple-apache-env-parser": "dev-master",
+    "esprobr/utils": "dev-master"
+  },
+  "require-dev": {
+    "vlucas/phpdotenv": "dev-master"
+  },
+  "autoload": {
+    "psr-0": {
+      "Espro": "src/"
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
